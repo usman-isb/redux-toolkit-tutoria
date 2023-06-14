@@ -1,6 +1,9 @@
 import { FunctionComponent } from "react";
-import {Outlet} from "react-router-dom"
-import NavBarProps from "./NavbarPanel";
+import { Outlet } from "react-router-dom"
+import NavBar from "./NavbarPanel";
+import { Provider } from "react-redux";
+import store from "../store/store";
+
 
 interface RootLayoutProps {
 
@@ -9,8 +12,13 @@ interface RootLayoutProps {
 const RootLayout: FunctionComponent<RootLayoutProps> = () => {
     return (
         <>
-            <NavBarProps/>
-            <Outlet/>
+            <Provider store={store}>
+                <NavBar />
+                <main>
+                    <Outlet />
+                </main>
+            </Provider>
+
         </>);
 }
 
