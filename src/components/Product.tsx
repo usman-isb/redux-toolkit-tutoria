@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FunctionComponent } from "react";
 import { Button, Card } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { add } from "../store/cartSlice";
+import { getProducts } from "../store/productSlice";
 
 interface ProductProps {
 
@@ -23,10 +24,13 @@ interface IProduct {
 
 const Product: FunctionComponent<ProductProps> = () => {
     const dispatch = useDispatch()
-    const [products, getProducts] = useState<IProduct[]>([])
+
+    const products = useSelector((state: any) => state.products)
+    // const [products, getProducts] = useState<IProduct[]>([])
 
     useEffect(() => {
-        fetch("https://fakestoreapi.com/products").then(data => data.json()).then(result => getProducts(result))
+       dispatch(getProducts() as any) 
+        //fetch("https://fakestoreapi.com/products").then(data => data.json()).then(result => getProducts(result))
     }, [])
 
     const addToCart = (product: IProduct) => {
